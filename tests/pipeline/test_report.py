@@ -25,9 +25,7 @@ def _write_meta(workspace: Workspace, stage: str, **usage: float) -> None:
 def test_report_sums_stages_into_steps(tmp_path: Path) -> None:
     recording = tmp_path / "r.mp3"
     recording.write_bytes(b"")
-    workspace = Workspace.prepare(
-        tmp_path / "out", recording=recording
-    )
+    workspace = Workspace.prepare(tmp_path / "out", recording=recording)
     _write_meta(workspace, "transcribe", audio=7200)
     _write_meta(workspace, "dehydrate", prompt=1000, completion=100)
     report = lecture_report(workspace.root, Settings({}, []))
@@ -35,6 +33,10 @@ def test_report_sums_stages_into_steps(tmp_path: Path) -> None:
     steps = {step.step.name: step.usage for step in report.steps}
     assert steps["transcribe"].audio_seconds == 7200
     dehydrated = steps["dehydrate"]
-    assert (dehydrated.prompt_tokens, dehydrated.completion_tokens, dehydrated.elapsed_seconds) == (1000, 100, 10)
+    assert (dehydrated.prompt_tokens, dehydrated.completion_tokens, dehydrated.elapsed_seconds) == (
+        1000,
+        100,
+        10,
+    )
     total = report.total
     assert (total.prompt_tokens, total.completion_tokens, total.elapsed_seconds) == (1000, 100, 20)

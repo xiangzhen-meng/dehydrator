@@ -81,7 +81,9 @@ def check() -> None:
             healthy = False
             logger.exception("检查 %s 失败", task)
             console.print(f"  [red]✗[/red] {task.label}：{describe(error)}")
-            names = "、".join(env_name(task, field) for field in (Field.URL, Field.MODEL, Field.KEY))
+            names = "、".join(
+                env_name(task, field) for field in (Field.URL, Field.MODEL, Field.KEY)
+            )
             console.print(f"    [dim]相关设置：{names}[/dim]")
     if not healthy:
         console.print(f"\n详细日志：{global_log_path()}")

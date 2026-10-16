@@ -44,7 +44,7 @@ async def run_process(
 ) -> list[tuple[str, Path]]:
     inspect_input(input_path)
     check_output(output)
-    workspace = Workspace.prepare(output, recording=input_path.resolve())
+    workspace = Workspace.prepare(output, recording=input_path)
     pipeline = build_pipeline(workspace, settings, on_event)
     await pipeline.run()
     return [(label, workspace.root / name) for label, name in OUTPUT_FILES]
@@ -82,6 +82,12 @@ class LectureReport:
         return sum((report.usage for report in self.steps), Usage())
 
 
+@dataclass(frozen=True)
+class ProcessResult:
+    outputs: list[tuple[str, Path]]
+    report: LectureReport
+
+
 def lecture_report(output: Path, settings: Settings) -> LectureReport:
     statuses = {s.stage: s for s in build_pipeline(Workspace(output), settings).status()}
     return LectureReport(
@@ -90,7 +96,11 @@ def lecture_report(output: Path, settings: Settings) -> LectureReport:
                 step=step,
                 done=all(statuses[stage].state == StageState.FRESH for stage in step.stages),
                 usage=sum(
-                    (_stage_usage(statuses[stage].meta) for stage in step.stages if statuses[stage].meta),
+                    (
+                        _stage_usage(statuses[stage].meta)
+                        for stage in step.stages
+                        if statuses[stage].meta is not None
+                    ),
                     Usage(),
                 ),
             )
@@ -99,7 +109,9 @@ def lecture_report(output: Path, settings: Settings) -> LectureReport:
     )
 
 
-def _stage_usage(meta: StageMeta) -> Usage:
+def _stage_usage(meta: StageMeta | None) -> Usage:
+    if meta is None:
+        return Usage()
     return Usage(
         elapsed_seconds=meta.elapsed_seconds,
         audio_seconds=meta.audio_seconds,
@@ -110,3 +122,14 @@ def _stage_usage(meta: StageMeta) -> Usage:
 
 async def verify_task(settings: Settings, task: Task) -> None:
     await build_verifier(settings, task).verify()
+
+
+async def run_process_result(
+    input_path: Path,
+    output: Path,
+    settings: Settings,
+    on_event: Callable[[PipelineEvent], None] = lambda _: None,
+) -> ProcessResult:
+    """运行流水线并返回适合 API 层消费的结构化结果。"""
+    outputs = await run_process(input_path, output, settings, on_event)
+    return ProcessResult(outputs=outputs, report=lecture_report(output, settings))
