@@ -1,7 +1,7 @@
 [project]
 name = "dehydrater"
 version = "0.1.0"
-description = "把课堂录像和课件脱水成逐字稿、通知清单和讲义"
+description = "把音频或视频转成脱水稿"
 readme = "README.md"
 license = "AGPL-3.0-or-later"
 license-files = ["LICENSE"]
@@ -12,9 +12,7 @@ dependencies = [
     "jinja2>=3.1",
     "openai>=1.80",
     "platformdirs>=4.3",
-    "prompt-toolkit>=3.0.53",
     "pydantic>=2.11",
-    "pymupdf>=1.28.2",
     "python-dotenv>=1.2.4",
     "rich>=14",
     "tomli-w>=1.2",
@@ -29,8 +27,6 @@ dev = [
     "basedpyright>=1.29",
     "import-linter>=2.3",
     "numpy>=2.5.4",
-    "pexpect>=4.9.0",
-    "pyte>=0.8.2",
     "pytest>=8.4",
     "pytest-asyncio>=1.0",
     "ruff>=0.12",
@@ -55,21 +51,13 @@ include = ["src", "tests"]
 typeCheckingMode = "strict"
 pythonVersion = "3.13"
 
-# PyAV、PyMuPDF 的类型标注不完整。adapters 是隔离第三方库的边界，
+# PyAV 的类型标注不完整。adapters 是隔离第三方库的边界，
 # 只在这里放宽"未知类型"检查；其余规则仍按 strict 执行。
 [[tool.basedpyright.executionEnvironments]]
 root = "src/dehydrater/adapters"
 reportUnknownMemberType = false
 reportUnknownVariableType = false
 reportUnknownArgumentType = false
-
-[[tool.basedpyright.executionEnvironments]]
-root = "tests/terminal"
-reportUnknownMemberType = false
-reportUnknownVariableType = false
-reportUnknownArgumentType = false
-reportUnknownParameterType = false
-reportMissingParameterType = false
 
 [[tool.basedpyright.executionEnvironments]]
 root = "tests/adapters"
@@ -103,4 +91,4 @@ layers = [
 name = "IO 与外部服务的库只能出现在 adapters 中"
 type = "forbidden"
 source_modules = ["dehydrater.domain", "dehydrater.ports", "dehydrater.pipeline"]
-forbidden_modules = ["av", "pymupdf", "openai", "httpx"]
+forbidden_modules = ["av", "openai", "httpx"]

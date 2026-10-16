@@ -2,8 +2,6 @@
 
 import hashlib
 import tomllib
-from collections.abc import Sequence
-from datetime import date
 from pathlib import Path
 
 import tomli_w
@@ -33,23 +31,18 @@ class _LectureManifest(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    title: str
-    date: date
     recording: Path
-    slides: list[Path] = []
 
 
 class Workspace:
     """工作区目录布局：
 
     lecture.toml            输入清单（用户可编辑）
-    notes.md                笔记
     dehydrated.md           脱水逐字稿
-    raw.md                  原始逐字稿
     cache/
         audio.mp3           从录音中提取的音频（送去语音识别的就是它）
         dehydrater.log      运行日志
-        artifacts/          各阶段产物（JSON），如原始逐字稿、大纲
+        artifacts/          各阶段产物（JSON）
         stages/             各阶段的缓存元数据：缓存键、耗时、token 用量
         <阶段名>/           各阶段自己的中间文件，如脱水的分块结果
     删除 cache/ 等于从头开始。
@@ -63,10 +56,7 @@ class Workspace:
         cls,
         root: Path,
         *,
-        title: str,
-        lecture_date: date,
         recording: Path,
-        slides: Sequence[Path] = (),
     ) -> "Workspace":
         """新建工作区；已存在且处理的是同一个录音时沿用它（已完成的步骤不会重做）。"""
         workspace = cls(root)
@@ -76,12 +66,7 @@ class Workspace:
                 raise WorkspaceError(
                     f"{workspace.root} 已用于整理另一节课（{existing.name}），请换一个输出路径"
                 )
-        manifest = _LectureManifest(
-            title=title,
-            date=lecture_date,
-            recording=workspace.portable_path(recording),
-            slides=[workspace.portable_path(path) for path in slides],
-        )
+        manifest = _LectureManifest(recording=workspace.portable_path(recording))
         workspace.root.mkdir(parents=True, exist_ok=True)
         data = manifest.model_dump(mode="json")
         workspace.manifest_path.write_text(tomli_w.dumps(data), encoding="utf-8")
@@ -123,12 +108,7 @@ class Workspace:
         if not self.manifest_path.exists():
             raise WorkspaceError(f"{self.root} 不是工作区：找不到 {LECTURE_FILE}")
         manifest = self._read_manifest()
-        return Lecture(
-            title=manifest.title,
-            date=manifest.date,
-            recording=self._source_file(manifest.recording),
-            slides=[self._source_file(path) for path in manifest.slides],
-        )
+        return Lecture(recording=self._source_file(manifest.recording))
 
     def _read_manifest(self) -> _LectureManifest:
         with self.manifest_path.open("rb") as f:

@@ -1,7 +1,6 @@
 """把流水线事件渲染成按"步骤"显示的进度界面。"""
 
 import time
-from collections.abc import Collection
 from enum import Enum, auto
 from types import TracebackType
 
@@ -53,8 +52,8 @@ class _StepProgress:
 class ProgressDisplay:
     """用作 with 语句：进入时开始实时刷新，退出时停在最终状态。"""
 
-    def __init__(self, console: Console, *, hidden_steps: Collection[str] = ()) -> None:
-        self._steps = [_StepProgress(step) for step in STEPS if step.name not in hidden_steps]
+    def __init__(self, console: Console) -> None:
+        self._steps = [_StepProgress(step) for step in STEPS]
         self._messages: list[Text] = []
         self._live = Live(console=console, get_renderable=self._render, refresh_per_second=8)
 

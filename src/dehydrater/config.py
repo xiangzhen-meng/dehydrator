@@ -3,8 +3,7 @@
 每项设置按以下顺序查找，先找到的生效：
 1. 环境变量，例如 DEHYDRATER_DEHYDRATE_KEY
 2. 当前目录向上找到的第一个 .env 文件
-3. 用户配置目录下的 env 文件（`dehydrater setup` 可以写入这里）
-4. 内置默认值（只有地址和模型有默认值，API Key 必须由用户提供）
+3. 内置默认值（只有地址和模型有默认值，API Key 必须由用户提供）
 """
 
 from collections.abc import Mapping, Sequence
@@ -12,7 +11,6 @@ from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
 
-import platformdirs
 from dotenv import dotenv_values
 
 _ASR_URL = "https://openspeech.bytedance.com/api/v3/auc/bigmodel"
@@ -22,8 +20,6 @@ _ARK_URL = "https://ark.cn-beijing.volces.com/api/v3"
 class Task(StrEnum):
     TRANSCRIBE = "transcribe"
     DEHYDRATE = "dehydrate"
-    OUTLINE = "outline"
-    WRITE_NOTES = "write_notes"
 
     @property
     def label(self) -> str:
@@ -33,8 +29,6 @@ class Task(StrEnum):
 _LABELS = {
     Task.TRANSCRIBE: "录音文件识别",
     Task.DEHYDRATE: "逐字稿脱水",
-    Task.OUTLINE: "笔记大纲",
-    Task.WRITE_NOTES: "笔记撰写",
 }
 
 
@@ -49,10 +43,6 @@ _DEFAULTS: dict[tuple[Task, Field], str] = {
     (Task.TRANSCRIBE, Field.MODEL): "volc.seedasr.auc",
     (Task.DEHYDRATE, Field.URL): _ARK_URL,
     (Task.DEHYDRATE, Field.MODEL): "doubao-seed-2-1-lite-260915",
-    (Task.OUTLINE, Field.URL): _ARK_URL,
-    (Task.OUTLINE, Field.MODEL): "doubao-seed-2-1-pro-260915",
-    (Task.WRITE_NOTES, Field.URL): _ARK_URL,
-    (Task.WRITE_NOTES, Field.MODEL): "doubao-seed-2-1-pro-260915",
 }
 
 
@@ -62,14 +52,6 @@ def env_name(task: Task, field: Field) -> str:
 
 def default_value(task: Task, field: Field) -> str | None:
     return _DEFAULTS.get((task, field))
-
-
-def config_dir() -> Path:
-    return platformdirs.user_config_path("dehydrater")
-
-
-def user_env_file() -> Path:
-    return config_dir() / "env"
 
 
 @dataclass(frozen=True)

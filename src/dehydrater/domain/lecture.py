@@ -1,4 +1,3 @@
-from datetime import date
 from pathlib import Path
 
 from dehydrater.domain.base import DomainModel, Seconds
@@ -14,15 +13,10 @@ class SourceFile(DomainModel):
 
 
 class Lecture(DomainModel):
-    """一节课的输入清单。"""
+    """一次处理的输入清单。"""
 
-    title: str
-    date: date
-    """上课日期，用于把"下周三"之类的相对日期换算成绝对日期。"""
     recording: SourceFile
-    """课堂录像或录音，任何带音轨的音视频文件均可。"""
-    slides: list[SourceFile]
-    """PDF 课件，可以没有，也可以有多份。"""
+    """用户提供的音频或视频文件。"""
 
 
 class AudioFile(DomainModel):
