@@ -1,5 +1,5 @@
 [project]
-name = "dehydrater"
+name = "dehydrator"
 version = "0.1.0"
 description = "把音频或视频转成脱水稿"
 readme = "README.md"
@@ -21,8 +21,8 @@ dependencies = [
 ]
 
 [project.scripts]
-dehydrater = "dehydrater.cli.app:main"
-dehydrater-mcp = "dehydrater.mcp_server:main"
+dehydrator = "dehydrator.cli.app:main"
+dehydrator-mcp = "dehydrator.mcp_server:main"
 
 [dependency-groups]
 dev = [
@@ -56,7 +56,7 @@ pythonVersion = "3.13"
 # PyAV 的类型标注不完整。adapters 是隔离第三方库的边界，
 # 只在这里放宽"未知类型"检查；其余规则仍按 strict 执行。
 [[tool.basedpyright.executionEnvironments]]
-root = "src/dehydrater/adapters"
+root = "src/dehydrator/adapters"
 reportUnknownMemberType = false
 reportUnknownVariableType = false
 reportUnknownArgumentType = false
@@ -73,24 +73,24 @@ asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 
 [tool.importlinter]
-root_package = "dehydrater"
+root_package = "dehydrator"
 include_external_packages = true
 
 [[tool.importlinter.contracts]]
 name = "分层：上层可以依赖下层，反之不行"
 type = "layers"
 layers = [
-    "dehydrater.cli",
-    "dehydrater.service",
-    "dehydrater.bootstrap",
-    "dehydrater.config",
-    "dehydrater.pipeline | dehydrater.adapters",
-    "dehydrater.ports",
-    "dehydrater.domain",
+    "dehydrator.cli",
+    "dehydrator.service",
+    "dehydrator.bootstrap",
+    "dehydrator.config",
+    "dehydrator.pipeline | dehydrator.adapters",
+    "dehydrator.ports",
+    "dehydrator.domain",
 ]
 
 [[tool.importlinter.contracts]]
 name = "IO 与外部服务的库只能出现在 adapters 中"
 type = "forbidden"
-source_modules = ["dehydrater.domain", "dehydrater.ports", "dehydrater.pipeline"]
+source_modules = ["dehydrator.domain", "dehydrator.ports", "dehydrator.pipeline"]
 forbidden_modules = ["av", "openai", "httpx"]

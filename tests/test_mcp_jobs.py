@@ -3,16 +3,16 @@ from pathlib import Path
 
 import pytest
 
-from dehydrater.config import Settings
-from dehydrater.mcp_jobs import JobManager
-from dehydrater.service import LectureReport, ProcessResult
+from dehydrator.config import Settings
+from dehydrator.mcp_jobs import JobManager
+from dehydrator.service import LectureReport, ProcessResult
 
 
 def _settings() -> Settings:
     return Settings(
         {
-            "DEHYDRATER_TRANSCRIBE_KEY": "test-transcribe-key",
-            "DEHYDRATER_DEHYDRATE_KEY": "test-dehydrate-key",
+            "DEHYDRATOR_TRANSCRIBE_KEY": "test-transcribe-key",
+            "DEHYDRATOR_DEHYDRATE_KEY": "test-dehydrate-key",
         },
         [],
     )

@@ -248,7 +248,7 @@ wheels = [
 ]
 
 [[package]]
-name = "dehydrater"
+name = "dehydrator"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

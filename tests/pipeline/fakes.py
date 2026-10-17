@@ -1,9 +1,9 @@
 """测试用的最小阶段与产物，用来验证调度和缓存逻辑，不涉及真实业务。"""
 
-from dehydrater.domain.base import DomainModel
-from dehydrater.pipeline.artifacts import ArtifactKey
-from dehydrater.pipeline.stage import Stage, StageContext
-from dehydrater.ports import Fingerprint
+from dehydrator.domain.base import DomainModel
+from dehydrator.pipeline.artifacts import ArtifactKey
+from dehydrator.pipeline.stage import Stage, StageContext
+from dehydrator.ports import Fingerprint
 
 
 class Number(DomainModel):

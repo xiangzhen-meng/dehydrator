@@ -5,8 +5,8 @@ import av
 import numpy as np
 import pytest
 
-from dehydrater.adapters.audio_pyav import PyAVAudioExtractor
-from dehydrater.ports import NotAMediaFileError
+from dehydrator.adapters.audio_pyav import PyAVAudioExtractor
+from dehydrator.ports import NotAMediaFileError
 
 
 def _write_tone(path: Path, seconds: float, codec: str = "aac", rate: int = 44_100) -> None:

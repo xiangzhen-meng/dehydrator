@@ -1,12 +1,12 @@
 import pytest
 from pydantic import BaseModel
 
-from dehydrater.pipeline.structured import (
+from dehydrator.pipeline.structured import (
     InvalidReplyError,
     StructuredOutputError,
     complete_json,
 )
-from dehydrater.ports import ChatMessage
+from dehydrator.ports import ChatMessage
 
 from ..fakes import ScriptedChat
 

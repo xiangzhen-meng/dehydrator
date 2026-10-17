@@ -5,14 +5,14 @@ from pathlib import Path
 
 import pytest
 
-from dehydrater.domain.lecture import Lecture, SourceFile
-from dehydrater.domain.transcript import Transcript, TranscriptSegment
-from dehydrater.pipeline.artifacts import DEHYDRATED_TRANSCRIPT, LECTURE, RAW_TRANSCRIPT
-from dehydrater.pipeline.cache import load_meta
-from dehydrater.pipeline.runner import Runner
-from dehydrater.pipeline.stages.dehydrate import DehydrateStage
-from dehydrater.pipeline.templating import TemplateSet
-from dehydrater.pipeline.workspace import ArtifactStore, Workspace
+from dehydrator.domain.lecture import Lecture, SourceFile
+from dehydrator.domain.transcript import Transcript, TranscriptSegment
+from dehydrator.pipeline.artifacts import DEHYDRATED_TRANSCRIPT, LECTURE, RAW_TRANSCRIPT
+from dehydrator.pipeline.cache import load_meta
+from dehydrator.pipeline.runner import Runner
+from dehydrator.pipeline.stages.dehydrate import DehydrateStage
+from dehydrator.pipeline.templating import TemplateSet
+from dehydrator.pipeline.workspace import ArtifactStore, Workspace
 
 from ..fakes import ScriptedChat
 

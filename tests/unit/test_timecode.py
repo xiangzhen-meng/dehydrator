@@ -1,6 +1,6 @@
 import pytest
 
-from dehydrater.domain.timecode import format_timecode
+from dehydrator.domain.timecode import format_timecode
 
 
 @pytest.mark.parametrize(

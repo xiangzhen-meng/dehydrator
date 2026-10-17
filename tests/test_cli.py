@@ -4,7 +4,7 @@ from pathlib import Path
 
 from typer.testing import CliRunner
 
-from dehydrater.cli.app import app
+from dehydrator.cli.app import app
 
 runner = CliRunner()
 
@@ -20,7 +20,7 @@ def test_help_is_non_interactive() -> None:
     result = runner.invoke(app, ["--help"])
 
     assert result.exit_code == 0
-    assert "dehydrater -i INPUT -o OUTPUT" in result.output
+    assert "dehydrator -i INPUT -o OUTPUT" in result.output
     assert "setup" not in result.output
     assert "process" not in result.output
 

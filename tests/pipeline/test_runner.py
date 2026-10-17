@@ -2,9 +2,9 @@ from pathlib import Path
 
 import pytest
 
-from dehydrater.pipeline.runner import PipelineDefinitionError, Runner, StageState
-from dehydrater.pipeline.stage import Stage, UndeclaredArtifactError
-from dehydrater.pipeline.workspace import ArtifactStore, Workspace
+from dehydrator.pipeline.runner import PipelineDefinitionError, Runner, StageState
+from dehydrator.pipeline.stage import Stage, UndeclaredArtifactError
+from dehydrator.pipeline.workspace import ArtifactStore, Workspace
 
 from .fakes import DOUBLED, PLUS_ONE, SEED, Double, Number, PlusOne, ReadsUndeclared
 

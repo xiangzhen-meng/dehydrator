@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from dehydrater.domain.lecture import Lecture, SourceFile
-from dehydrater.domain.transcript import Transcript, TranscriptSegment
-from dehydrater.pipeline.templating import TemplateSet
+from dehydrator.domain.lecture import Lecture, SourceFile
+from dehydrator.domain.transcript import Transcript, TranscriptSegment
+from dehydrator.pipeline.templating import TemplateSet
 
 
 def test_dehydrated_template_renders_timecodes() -> None:

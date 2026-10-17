@@ -2,10 +2,10 @@
 
 from pathlib import Path
 
-from dehydrater.config import Settings
-from dehydrater.pipeline.cache import StageMeta
-from dehydrater.pipeline.workspace import Workspace
-from dehydrater.service import lecture_report
+from dehydrator.config import Settings
+from dehydrator.pipeline.cache import StageMeta
+from dehydrator.pipeline.workspace import Workspace
+from dehydrator.service import lecture_report
 
 
 def _write_meta(workspace: Workspace, stage: str, **usage: float) -> None:

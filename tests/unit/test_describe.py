@@ -1,6 +1,6 @@
 import httpx
 
-from dehydrater.cli.display import describe
+from dehydrator.cli.display import describe
 
 
 def test_timeout_without_message_is_explained() -> None:

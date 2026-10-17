@@ -1,5 +1,5 @@
 {
-  description = "dehydrater：把课堂录像和课件脱水成逐字稿、通知清单和讲义";
+  description = "dehydrator：把课堂录像和课件脱水成逐字稿、通知清单和讲义";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 

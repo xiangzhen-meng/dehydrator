@@ -6,13 +6,13 @@ from pathlib import Path
 import httpx
 import pytest
 
-from dehydrater.adapters.asr_volcengine import (
+from dehydrator.adapters.asr_volcengine import (
     AsrNetworkError,
     VolcengineAsrError,
     VolcengineTranscriber,
 )
-from dehydrater.domain.transcript import TranscriptSegment
-from dehydrater.ports import TranscriptionHints
+from dehydrator.domain.transcript import TranscriptSegment
+from dehydrator.ports import TranscriptionHints
 
 _OK_BODY = {
     "audio_info": {"duration": 3696},

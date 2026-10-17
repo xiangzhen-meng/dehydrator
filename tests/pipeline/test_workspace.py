@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from dehydrater.pipeline.workspace import Workspace, WorkspaceError
+from dehydrator.pipeline.workspace import Workspace, WorkspaceError
 
 
 @pytest.fixture

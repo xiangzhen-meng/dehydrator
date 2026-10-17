@@ -2,7 +2,7 @@
 
 from collections.abc import Sequence
 
-from dehydrater.ports import ChatMessage, ChatReply, Fingerprint, TokenUsage
+from dehydrator.ports import ChatMessage, ChatReply, Fingerprint, TokenUsage
 
 
 class ScriptedChat:

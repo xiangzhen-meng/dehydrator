@@ -1,5 +1,5 @@
-from dehydrater.domain.chunking import chunk_segments
-from dehydrater.domain.transcript import TranscriptSegment
+from dehydrator.domain.chunking import chunk_segments
+from dehydrator.domain.transcript import TranscriptSegment
 
 
 def _segments(*lengths: int) -> list[TranscriptSegment]:

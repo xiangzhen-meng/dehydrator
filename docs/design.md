@@ -1,8 +1,8 @@
-# dehydrater 设计
+# dehydrator 设计
 
 ## 定位
 
-dehydrater 是一个非交互式单功能命令：把一个音频或视频文件转换为带时间戳的脱水稿。
+dehydrator 是一个非交互式单功能命令：把一个音频或视频文件转换为带时间戳的脱水稿。
 
 ```text
 输入文件 → 提取音频 → 语音转写 → 脱水改写 → dehydrated.md
@@ -13,9 +13,9 @@ dehydrater 是一个非交互式单功能命令：把一个音频或视频文件
 ## 命令
 
 ```bash
-dehydrater -i INPUT -o OUTPUT
-dehydrater check
-dehydrater status OUTPUT
+dehydrator -i INPUT -o OUTPUT
+dehydrator check
+dehydrator status OUTPUT
 ```
 
 根命令不带 `-i` 和 `-o` 时直接失败，不进入交互流程。
@@ -54,7 +54,7 @@ OUTPUT/
 ├── lecture.toml
 └── cache/
     ├── audio.mp3
-    ├── dehydrater.log
+    ├── dehydrator.log
     ├── artifacts/
     ├── stages/
     └── dehydrate/
